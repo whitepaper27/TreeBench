@@ -1,0 +1,89 @@
+{
+  "dataset": "TreeBench-861",
+  "file": "treebench_v1_861_gold.json",
+  "total_questions": 861,
+  "checks": {
+    "unique_question_ids": {
+      "pass": true,
+      "count": "861/861"
+    },
+    "required_distractor_overlap": {
+      "pass": true,
+      "violations": 0
+    },
+    "empty_gold_evidence": {
+      "pass": true,
+      "violations": 0
+    },
+    "duplicate_question_text": {
+      "pass": true,
+      "violations": 0
+    },
+    "oracle_upper_bound": {
+      "pass": true,
+      "accuracy": 1.0,
+      "recall": 1.0
+    },
+    "domain_type_cells_covered": {
+      "pass": true,
+      "covered": 50,
+      "total": 50
+    },
+    "candidates_rejected": {
+      "count": 61,
+      "from_total": 922
+    }
+  },
+  "cell_counts": {
+    "compliance_aggregation": 20,
+    "compliance_conditional_cascade": 19,
+    "compliance_cross_reference": 6,
+    "compliance_definitional_dependency": 20,
+    "compliance_depth_gated_specificity": 20,
+    "compliance_negative_space": 11,
+    "compliance_override_chain": 20,
+    "compliance_scope_disambiguation": 20,
+    "compliance_sibling_conflict": 20,
+    "compliance_temporal_layering": 20,
+    "finance_aggregation": 20,
+    "finance_conditional_cascade": 20,
+    "finance_cross_reference": 5,
+    "finance_definitional_dependency": 20,
+    "finance_depth_gated_specificity": 20,
+    "finance_negative_space": 8,
+    "finance_override_chain": 20,
+    "finance_scope_disambiguation": 20,
+    "finance_sibling_conflict": 20,
+    "finance_temporal_layering": 20,
+    "legal_aggregation": 20,
+    "legal_conditional_cascade": 20,
+    "legal_cross_reference": 9,
+    "legal_definitional_dependency": 20,
+    "legal_depth_gated_specificity": 20,
+    "legal_negative_space": 7,
+    "legal_override_chain": 20,
+    "legal_scope_disambiguation": 20,
+    "legal_sibling_conflict": 20,
+    "legal_temporal_layering": 20,
+    "medical_aggregation": 20,
+    "medical_conditional_cascade": 20,
+    "medical_cross_reference": 4,
+    "medical_definitional_dependency": 20,
+    "medical_depth_gated_specificity": 20,
+    "medical_negative_space": 7,
+    "medical_override_chain": 20,
+    "medical_scope_disambiguation": 15,
+    "medical_sibling_conflict": 20,
+    "medical_temporal_layering": 20,
+    "tax_aggregation": 20,
+    "tax_conditional_cascade": 20,
+    "tax_cross_reference": 1,
+    "tax_definitional_dependency": 20,
+    "tax_depth_gated_specificity": 20,
+    "tax_negative_space": 9,
+    "tax_override_chain": 20,
+    "tax_scope_disambiguation": 20,
+    "tax_sibling_conflict": 20,
+    "tax_temporal_layering": 20
+  }
+}

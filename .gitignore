@@ -1,0 +1,41 @@
+# Large data files (not for GitHub)
+data/raw/
+data/parsed/
+data/embeddings/
+data/results/checkpoints/
+
+# Legacy filenames
+data/pilot/treebench_1000_gold.json
+data/pilot/treebench_1000_candidate.json
+data/pilot/treebench_1000_rejected.json
+
+# Pilot iterations (not final)
+data/pilot/treebench_pilot_*.json
+data/pilot/treebench_pilot_*.xlsx
+data/pilot/review_manifest.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Search results (test artifacts)
+search_results_*.json
+
+# Old workbooks
+*.xlsx
