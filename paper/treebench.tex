@@ -7,7 +7,8 @@
 \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{xcolor}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
+\usepackage{natbib}
 \usepackage{multirow}
 \usepackage{tablefootnote}
 \usepackage[margin=1in]{geometry}
@@ -40,7 +41,7 @@ Retrieval-augmented generation (RAG) systems are increasingly deployed over hier
 \section{Introduction}
 \label{sec:intro}
 
-Retrieval-augmented generation has become the standard architecture for question answering over large document collections \cite{lewis2020rag}. The implicit assumption is that \emph{semantic similarity} is a reliable proxy for \emph{relevance}: if a retrieved passage is ``about'' the query topic, it contains the information needed to answer.
+Retrieval-augmented generation has become the standard architecture for question answering over large document collections \citep{lewis2020rag}. The implicit assumption is that \emph{semantic similarity} is a reliable proxy for \emph{relevance}: if a retrieved passage is ``about'' the query topic, it contains the information needed to answer.
 
 This assumption breaks down in hierarchically structured corpora. Legal codes, tax regulations, medical guidelines, and compliance frameworks organize provisions in trees where \emph{position determines authority}. A general rule at depth 3 may be overridden by a specific exception at depth 6. Two sibling sections may define the same term differently for different contexts. A cross-reference at one node may point to a controlling provision in an entirely different subtree. In all these cases, the retrieval problem is not semantic relevance---it is \textbf{authority selection}.
 
@@ -72,15 +73,15 @@ TreeBench demonstrates that \textbf{answer accuracy alone is an insufficient eva
 \section{Related Work}
 \label{sec:related}
 
-\paragraph{Retrieval-augmented generation.} RAG systems combine retrieval with generation to answer questions over large corpora \cite{lewis2020rag, gao2024ragsurvey}. Standard benchmarks such as Natural Questions \cite{kwiatkowski2019nq}, TriviaQA \cite{joshi2017triviaqa}, and MS MARCO \cite{nguyen2016msmarco} evaluate retrieval primarily through downstream answer accuracy. These benchmarks assume flat document collections where any passage containing the answer is equally valid evidence. Recent domain-specific benchmarks like FinanceBench \cite{islam2024financebench} evaluate RAG over specialized corpora but do not isolate the structural authority dimension.
+\paragraph{Retrieval-augmented generation.} RAG systems combine retrieval with generation to answer questions over large corpora \citep{lewis2020rag, gao2024ragsurvey}. Standard benchmarks such as Natural Questions \citep{kwiatkowski2019nq}, TriviaQA \citep{joshi2017triviaqa}, and MS MARCO \citep{nguyen2016msmarco} evaluate retrieval primarily through downstream answer accuracy. These benchmarks assume flat document collections where any passage containing the answer is equally valid evidence. Recent domain-specific benchmarks like FinanceBench \citep{islam2024financebench} evaluate RAG over specialized corpora but do not isolate the structural authority dimension.
 
-\paragraph{Structured and hierarchical QA.} Prior work has explored question answering over structured data including knowledge graphs, tables, and multi-hop reasoning over flat document sets \cite{yang2018hotpotqa}. GraphRAG \cite{edge2024graphrag} introduces graph-based indexing for summarization, and TreeRAG \cite{tao2025treerag} proposes hierarchical storage for long-document retrieval. However, neither addresses the hierarchical authority selection problem where tree position---not content---determines which provision controls. Unlike these, TreeBench specifically targets this failure mode.
+\paragraph{Structured and hierarchical QA.} Prior work has explored question answering over structured data including multi-hop reasoning over flat document sets \citep{yang2018hotpotqa}. GraphRAG \citep{edge2024graphrag} introduces graph-based indexing for summarization, and TreeRAG \citep{tao2025treerag} proposes hierarchical storage for long-document retrieval. However, neither addresses the hierarchical authority selection problem where tree position---not content---determines which provision controls. Unlike these, TreeBench specifically targets this failure mode.
 
-\paragraph{Legal NLP.} Legal retrieval benchmarks such as LegalBench \cite{guha2023legalbench}, CUAD \cite{hendrycks2021cuad}, and CaseHOLD \cite{zheng2021casehold} focus on legal reasoning capabilities. Recent work has begun benchmarking RAG specifically for legal QA \cite{pipitone2024legalbenchrag}, but these evaluate whether a model can interpret legal language correctly, assuming the relevant provision has been identified. TreeBench complements this work by evaluating whether the relevant provision can be \emph{found} when structural confounders exist.
+\paragraph{Legal NLP.} Legal retrieval benchmarks such as LegalBench \citep{guha2023legalbench}, CUAD \citep{hendrycks2021cuad}, and CaseHOLD \citep{zheng2021casehold} focus on legal reasoning capabilities. Recent work has begun benchmarking RAG specifically for legal QA \citep{pipitone2024legalbenchrag}, but these evaluate whether a model can interpret legal language correctly, assuming the relevant provision has been identified. TreeBench complements this work by evaluating whether the relevant provision can be \emph{found} when structural confounders exist.
 
-\paragraph{Retrieval techniques.} BM25 \cite{robertson2009bm25} remains a strong baseline for lexical retrieval. Dense passage retrieval \cite{karpukhin2020dense} using sentence embeddings \cite{reimers2019sentencebert, wang2020minilm} has become the dominant neural approach. Neural reranking \cite{nogueira2020reranking} and chain-of-thought prompting \cite{wei2022cot} have been proposed to improve retrieval and reasoning quality, respectively. Liu et al.\ \cite{liu2024lostmiddle} show that LLMs struggle with evidence positioned in the middle of long contexts; our findings reveal a complementary failure: models cannot reason over evidence that retrieval never surfaced. Our results show that these techniques do not address---and in the case of reranking, can exacerbate---structural authority failures in hierarchical corpora.
+\paragraph{Retrieval techniques.} BM25 \citep{robertson2009bm25} remains a strong baseline for lexical retrieval. Dense passage retrieval \citep{karpukhin2020dense} using sentence embeddings \citep{reimers2019sentencebert, wang2020minilm} has become the dominant neural approach. Neural reranking \citep{nogueira2020reranking} and chain-of-thought prompting \citep{wei2022cot} have been proposed to improve retrieval and reasoning quality, respectively. \citet{liu2024lostmiddle} show that LLMs struggle with evidence positioned in the middle of long contexts; our findings reveal a complementary failure: models cannot reason over evidence that retrieval never surfaced. Our results show that these techniques do not address---and in the case of reranking, can exacerbate---structural authority failures in hierarchical corpora.
 
-\paragraph{Evidence attribution.} Recent work on attribution \cite{rashkin2023attribution} evaluates whether generated text is supported by cited evidence. TreeBench goes further: it evaluates whether the \emph{correct} evidence was retrieved, distinguishing authoritative from merely relevant sources.
+\paragraph{Evidence attribution.} Recent work on attribution \citep{rashkin2023attribution} evaluates whether generated text is supported by cited evidence. TreeBench goes further: it evaluates whether the \emph{correct} evidence was retrieved, distinguishing authoritative from merely relevant sources.
 
 
 % ════════════════════════════════════════════════════════════════════
@@ -286,7 +287,7 @@ We evaluate 8 methods organized in two phases.
 
 \paragraph{BM25.} Lexical retrieval using BM25 scoring over all nodes in the relevant title. Returns top-10 nodes by BM25 score.
 
-\paragraph{Dense RAG.} Embedding-based retrieval \cite{karpukhin2020dense} using sentence-transformers \cite{reimers2019sentencebert} (\texttt{all-MiniLM-L6-v2} \cite{wang2020minilm}). Returns top-10 nodes by cosine similarity to the query embedding.
+\paragraph{Dense RAG.} Embedding-based retrieval \citep{karpukhin2020dense} using sentence-transformers \citep{reimers2019sentencebert} (\texttt{all-MiniLM-L6-v2} \citep{wang2020minilm}). Returns top-10 nodes by cosine similarity to the query embedding.
 
 \paragraph{Hybrid RAG.} Reciprocal rank fusion of BM25 and dense retrieval scores, combining lexical and semantic signals.
 
@@ -341,13 +342,13 @@ Table~\ref{tab:main} presents the main results across all 8 methods.
 
 \paragraph{Finding 2: Dense retrieval is weaker than lexical.} Dense RAG (53\% accuracy, 34\% recall) substantially underperforms BM25 (76\% accuracy, 45\% recall). This is consistent with our hypothesis: embedding similarity conflates semantically related but structurally distinct nodes. The regulatory text reuses vocabulary extensively across hierarchical levels, creating embedding-space collisions that lexical matching partially avoids.
 
-\paragraph{Finding 3: Reranking amplifies confounders.} In our evaluated setting, the reranker achieves only 34.5\% accuracy and 21\% recall the worst retrieval-only method. Cross-encoder reranking optimizes for query-passage relevance, which in hierarchical corpora can select \emph{against} authority. The confounder node is topically relevant (high reranker score) but positionally wrong.
+\paragraph{Finding 3: Reranking amplifies confounders.} In our evaluated setting, the reranker achieves only 34.5\% accuracy and 21\% recall---degrading Dense RAG's own 53\% accuracy by reranking its candidate pool. Cross-encoder reranking optimizes for query-passage relevance, which in hierarchical corpora can select \emph{against} authority. The confounder node is topically relevant (high reranker score) but positionally wrong.
 
 \paragraph{Finding 4: Reasoning cannot fix upstream retrieval failure.} RAG + CoT achieves 72\% accuracy (slightly below BM25's 76\%) but identical recall to Dense RAG (34\%). The LLM can improve answer quality given the same context, but it cannot recover evidence nodes that were never retrieved. This demonstrates that the failure mode is in \emph{context selection}, not in reasoning capability.
 
-\paragraph{Finding 5: Verification does not recover missing authority.} RAG + Judge (57\% accuracy, 34\% recall) performs \emph{worse} than CoT on accuracy while maintaining identical recall. The judge can identify some wrong answers but cannot determine that the retrieved evidence lacks structural authority it has no access to what \emph{should} have been retrieved.
+\paragraph{Finding 5: Verification does not recover missing authority.} RAG + Judge (57\% accuracy, 34\% recall) performs \emph{worse} than CoT on accuracy while maintaining identical recall. The judge can identify some wrong answers but cannot determine that the retrieved evidence lacks structural authority---it has no access to what \emph{should} have been retrieved.
 
-\paragraph{Finding 6: Naive structure-aware navigation is hard.} Our naive tree traversal baseline achieves only 2\% accuracy. Top-down navigation through regulatory trees requires understanding which branch contains the authoritative provision at each level a capability current LLMs lack in this domain without additional scaffolding.
+\paragraph{Finding 6: Naive structure-aware navigation is hard.} Our naive tree traversal baseline achieves only 2\% accuracy. Top-down navigation through regulatory trees requires understanding which branch contains the authoritative provision at each level---a capability current LLMs lack in this domain without additional scaffolding.
 
 \begin{figure*}[t]
 \centering
@@ -428,7 +429,7 @@ The largest authority gaps occur in methods that achieve high accuracy: BM25 and
 \begin{figure}[h]
 \centering
 \includegraphics[width=\columnwidth]{figures/fig6_authority_gap.pdf}
-\caption{The authority gap: difference between answer accuracy and required-node recall. RAG + CoT has the largest gap (38 pp) reasoning improves surface answers without improving evidence quality.}
+\caption{The authority gap: difference between answer accuracy and required-node recall. RAG + CoT has the largest gap (38 pp)---reasoning improves surface answers without improving evidence quality.}
 \label{fig:authority_gap}
 \end{figure}
 
@@ -453,7 +454,7 @@ In regulated industries (finance, healthcare, tax), retrieval systems are increa
 
 \paragraph{Scope.} TreeBench currently covers U.S.\ federal regulations (eCFR). Other hierarchical corpora (case law, international treaties, corporate policies) may exhibit different structural patterns. We believe the failure taxonomy generalizes but have not empirically validated this.
 
-\paragraph{Question generation.} Questions are generated by an LLM from mined structural patterns, not written by domain experts. While we apply extensive automated validation (structural giveaway detection, signal verification, overlap checking), some questions may not perfectly mirror how practitioners phrase regulatory queries.
+\paragraph{Question generation and label validity.} Questions are generated by an LLM from mined structural patterns, not written by domain experts. While we apply extensive automated validation (structural giveaway detection, signal verification, overlap checking) and manually inspected a stratified sample of 50 questions, the gold labels (required nodes, distractor nodes, gold paths) have not been adjudicated by domain professionals. The oracle achieving 100\% confirms scoring-pipeline correctness but not label correctness. A natural strengthening would be to have regulatory practitioners (e.g., tax or compliance professionals) independently annotate a subset of 100 questions and report inter-annotator agreement against the LLM-generated labels. We plan to pursue this for a future version of the benchmark; the current release should be understood as an automated-with-validation dataset rather than an expert-curated one.
 
 \paragraph{Partial coverage.} Not all 50 cells (5 domains $\times$ 10 failure types) reach the target of 20 questions; cross-reference (25 total) and negative space (42 total) have fewer candidates due to rarer structural patterns. This reflects genuine variation in how failure types manifest across domains.
 
@@ -463,7 +464,7 @@ In regulated industries (finance, healthcare, tax), retrieval systems are increa
 
 \paragraph{Tree traversal.} Our tree traversal baseline is intentionally naive (single-pass top-down). More sophisticated approaches (beam search, backtracking, multi-step planning) may perform substantially better and represent a promising research direction.
 
-\paragraph{Reproducibility.} We release the following artifacts at \url{https://github.com/whitepaper27/TreeBench}, following dataset documentation best practices \cite{gebru2021datasheets}:
+\paragraph{Reproducibility.} We release the following artifacts at \url{https://github.com/whitepaper27/TreeBench}, following dataset documentation best practices \citep{gebru2021datasheets}:
 \begin{enumerate}[nosep]
     \item The 861-question gold dataset with required/distractor node IDs
     \item Automated validation report (all quality checks)
