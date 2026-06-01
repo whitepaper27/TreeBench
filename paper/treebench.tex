@@ -97,6 +97,27 @@ TreeBench is designed around three principles:
     \item \textbf{Ecological validity.} Questions are mined from real regulatory text (eCFR) rather than synthetically constructed, preserving the natural complexity of hierarchical legal language.
 \end{enumerate}
 
+Table~\ref{tab:examples} illustrates two representative TreeBench questions showing how structural confounders create retrieval failures.
+
+\begin{table*}[t]
+\centering
+\small
+\begin{tabular}{p{1.8cm}p{6.5cm}p{6.5cm}}
+\toprule
+& \textbf{Example 1: Override Chain} & \textbf{Example 2: Scope Disambiguation} \\
+\midrule
+\textbf{Domain} & Tax (Title 26) & Finance (Title 12) \\
+\textbf{Query} & What are the specific tax liability requirements for corporations under \S~1.11-1? & How is the term ``services'' scoped under the Bank Holding Company Act (\S~225.104)? \\
+\textbf{Correct node} & \S~1.11-1(a) at depth 6: specific exceptions for foreign corporations and exempt organizations & \S~225.104(c) at depth 7: definition scoped to ``closely related'' nonbanking activities \\
+\textbf{Distractor} & \S~1.11-1(b--d): sibling paragraphs discussing related but non-controlling provisions & \S~225.104(1): a different paragraph defining ``services'' for a separate regulatory context \\
+\textbf{Why RAG fails} & General rule and exception share 73\% vocabulary overlap; embedding similarity cannot distinguish parent from overriding child & Both nodes define the same term with near-identical vocabulary; only tree position resolves which scope applies \\
+\textbf{Depth} & 6 & 7 \\
+\bottomrule
+\end{tabular}
+\caption{Two representative TreeBench questions. In both cases, the correct and distractor nodes are semantically near-identical; only hierarchical position distinguishes the authoritative provision.}
+\label{tab:examples}
+\end{table*}
+
 \subsection{Source Corpus}
 
 We use 10 titles from the U.S.\ Electronic Code of Federal Regulations (eCFR), spanning 5 domains:
@@ -436,11 +457,21 @@ In regulated industries (finance, healthcare, tax), retrieval systems are increa
 
 \paragraph{Partial coverage.} Not all 50 cells (5 domains $\times$ 10 failure types) reach the target of 20 questions; cross-reference (25 total) and negative space (42 total) have fewer candidates due to rarer structural patterns. This reflects genuine variation in how failure types manifest across domains.
 
-\paragraph{Baseline scope.} We evaluate representative methods but do not test all possible configurations (e.g., larger embedding models, recursive retrieval, graph-based methods). TreeBench is released as a benchmark; we expect future work to develop methods that better address structural authority.
+\paragraph{Retrieval scope.} Each question is evaluated against the nodes of its source eCFR title (tens of thousands of nodes), not the full 591,793-node corpus. This is a deliberate design choice that isolates structural authority failures from corpus-scale retrieval noise. Retrieval over the full corpus would likely produce lower scores across all methods.
+
+\paragraph{Baseline scope.} We evaluate representative methods using widely available models (all-MiniLM-L6-v2, ms-marco-MiniLM-L-6-v2, GPT-4.1-mini) but do not test all possible configurations. Larger embedding models (e.g., text-embedding-3-large), stronger rerankers (e.g., Cohere rerank-3), and frontier reasoning models may narrow the gap. If the failure is genuinely structural, it should persist with stronger models; we leave this verification to future work. Results are single-run without confidence intervals; the LLM-based methods (CoT, Judge, Tree Traversal) are stochastic. TreeBench is released as a benchmark and we expect future work to develop methods that better address structural authority.
 
 \paragraph{Tree traversal.} Our tree traversal baseline is intentionally naive (single-pass top-down). More sophisticated approaches (beam search, backtracking, multi-step planning) may perform substantially better and represent a promising research direction.
 
-\paragraph{Documentation and reproducibility.} We follow dataset documentation best practices \cite{gebru2021datasheets} and release the full dataset, evaluation code, and validation report. We encourage future work to report structural evidence metrics alongside accuracy when evaluating retrieval over hierarchically organized corpora.
+\paragraph{Reproducibility.} We release the following artifacts at \url{https://github.com/whitepaper27/TreeBench}, following dataset documentation best practices \cite{gebru2021datasheets}:
+\begin{enumerate}[nosep]
+    \item The 861-question gold dataset with required/distractor node IDs
+    \item Automated validation report (all quality checks)
+    \item Source code for tree parsing, failure-pattern mining, and question generation
+    \item All baseline evaluation scripts (BM25, Dense, Hybrid, Reranker, CoT, Judge, Tree Traversal)
+    \item Baseline results and per-question evaluation outputs
+\end{enumerate}
+We encourage future work to report structural evidence metrics (required-node recall, distractor hit rate) alongside accuracy when evaluating retrieval over hierarchically organized corpora.
 
 
 % ════════════════════════════════════════════════════════════════════
