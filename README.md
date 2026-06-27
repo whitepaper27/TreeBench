@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20978266.svg)](https://doi.org/10.5281/zenodo.20978266)
+
 # TreeBench: A Benchmark for Hierarchy-Sensitive Retrieval over Structured Regulatory Corpora
 
 **Similarity is not authority.** TreeBench is a benchmark of 861 questions designed to expose *structural evidence failures* in retrieval-augmented generation (RAG) over hierarchically structured corpora.
@@ -26,6 +28,7 @@ TreeBench targets a specific failure mode: **structural confounder pairs** — t
 - **861 gold questions** across 5 regulatory domains and 10 structural failure types
 - Source corpus: 591,793 tree nodes from 10 U.S. Electronic Code of Federal Regulations (eCFR) titles
 - Each question includes: gold answer, required node IDs, distractor node IDs, gold path, and gold evidence
+- Core annotation fields: `required_node_ids`, `distractor_node_ids`, `gold_path`, `gold_evidence`, `review_status`, `failure_type`, `domain`, `question`, and `gold_answer`
 
 ### Domains
 
@@ -129,14 +132,21 @@ python paper/generate_figures.py \
 ## Citation
 
 ```bibtex
-@article{soni2026treebench,
-  title={TreeBench: A Benchmark for Hierarchy-Sensitive Retrieval over Structured Regulatory Corpora},
+@dataset{soni2026treebench861,
+  title={TreeBench-861: A Benchmark for Hierarchy-Sensitive Retrieval over Structured Regulatory Corpora},
   author={Soni, Sahil},
-  journal={arXiv preprint},
-  year={2026}
+  year={2026},
+  publisher={Zenodo},
+  version={v1.0.0},
+  doi={10.5281/zenodo.20978266},
+  url={https://doi.org/10.5281/zenodo.20978266}
 }
 ```
 
 ## License
 
-This dataset and code are released for research purposes.
+The dataset and documentation are released under the Creative Commons Attribution 4.0 International License (CC BY 4.0).
+
+The source code is released under the MIT License.
+
+The underlying regulatory text is derived from publicly available U.S. eCFR sources. Users should verify source-specific terms before redistributing raw source text.

@@ -6,9 +6,18 @@ authors:
     given-names: Sahil
 type: dataset
 date-released: "2026-06-27"
+doi: "10.5281/zenodo.20978266"
 url: "https://github.com/whitepaper27/TreeBench"
 repository-code: "https://github.com/whitepaper27/TreeBench"
 license: CC-BY-4.0
+version: "1.0.0"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.20978266"
+    description: "Zenodo dataset archive (v1.0.0)"
+  - type: url
+    value: "https://huggingface.co/datasets/sahilsoni2409/TreeBench"
+    description: "HuggingFace dataset"
 keywords:
   - rag
   - retrieval

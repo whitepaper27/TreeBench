@@ -77,6 +77,7 @@ dataset_info:
 
 Preprint submitted to arXiv and currently under moderation.
 GitHub: [https://github.com/whitepaper27/TreeBench](https://github.com/whitepaper27/TreeBench)
+Zenodo: [https://doi.org/10.5281/zenodo.20978266](https://doi.org/10.5281/zenodo.20978266)
 
 ## Key Finding
 
@@ -183,11 +184,14 @@ TreeBench evaluates retrieval beyond answer accuracy:
 ## Citation
 
 ```bibtex
-@article{soni2026treebench,
-  title={TreeBench: A Benchmark for Hierarchy-Sensitive Retrieval over Structured Regulatory Corpora},
+@dataset{soni2026treebench861,
+  title={TreeBench-861: A Benchmark for Hierarchy-Sensitive Retrieval over Structured Regulatory Corpora},
   author={Soni, Sahil},
-  journal={arXiv preprint},
-  year={2026}
+  year={2026},
+  publisher={Zenodo},
+  version={v1.0.0},
+  doi={10.5281/zenodo.20978266},
+  url={https://doi.org/10.5281/zenodo.20978266}
 }
 ```
 
