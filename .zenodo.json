@@ -1,0 +1,40 @@
+{
+  "title": "TreeBench-861: A Benchmark for Hierarchy-Sensitive Retrieval over Structured Regulatory Corpora",
+  "description": "TreeBench is a benchmark of 861 questions designed to expose structural evidence failures in retrieval-augmented generation (RAG) over hierarchically structured corpora. It targets structural confounder pairs \u2014 nodes that are semantically similar but structurally incompatible \u2014 across 5 regulatory domains and 10 structural failure types derived from the U.S. Electronic Code of Federal Regulations (eCFR). The best non-oracle method achieves 76% answer accuracy but only 45% required-node recall, producing correct-looking answers while missing the structural evidence that authorizes them.",
+  "upload_type": "dataset",
+  "license": "cc-by-4.0",
+  "access_right": "open",
+  "publication_date": "2026-06-27",
+  "creators": [
+    {
+      "name": "Soni, Sahil"
+    }
+  ],
+  "keywords": [
+    "rag",
+    "retrieval",
+    "information-retrieval",
+    "question-answering",
+    "benchmark",
+    "legal-nlp",
+    "regulatory-ai",
+    "llm-evaluation",
+    "hierarchy",
+    "structural-retrieval",
+    "ecfr"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/whitepaper27/TreeBench",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://huggingface.co/datasets/sahilsoni2409/TreeBench",
+      "relation": "isIdenticalTo",
+      "scheme": "url"
+    }
+  ],
+  "notes": "The dataset is also available on HuggingFace at sahilsoni2409/TreeBench. Code is released under MIT; data under CC-BY-4.0.",
+  "version": "1.0.0"
+}
