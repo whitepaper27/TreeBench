@@ -1,11 +1,11 @@
 cff-version: 1.2.0
 message: "If you use TreeBench, please cite it as below."
-title: "TreeBench: A Benchmark for Hierarchy-Sensitive Retrieval over Structured Regulatory Corpora"
+title: "TreeBench-861: A Benchmark for Hierarchy-Sensitive Retrieval over Structured Regulatory Corpora"
 authors:
   - family-names: Soni
     given-names: Sahil
 type: dataset
-date-released: "2026-06-27"
+date-released: "2026-06-28"
 doi: "10.5281/zenodo.20978266"
 url: "https://github.com/whitepaper27/TreeBench"
 repository-code: "https://github.com/whitepaper27/TreeBench"
