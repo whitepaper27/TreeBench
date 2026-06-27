@@ -11,12 +11,12 @@
 | Method | Accuracy | Path Acc. | Recall | Distr. |
 |--------|----------|-----------|--------|--------|
 | Oracle | 100.0% | 100.0% | 100.0% | 0.00 |
-| BM25 | 76.0% | 87.7% | 45.1% | 0.22 |
-| Hybrid RAG | 75.4% | 87.3% | 44.1% | 0.27 |
-| Dense RAG | 53.1% | 70.3% | 34.1% | 0.15 |
-| Reranker RAG | 34.5% | 47.2% | 21.2% | 0.11 |
-| RAG + CoT | 71.8% | 70.3% | 34.1% | 0.15 |
-| RAG + Judge | 56.8% | 70.3% | 34.1% | 0.15 |
+| BM25 | 76.0% | 87.7% | 45.1% | 0.12 |
+| Hybrid RAG | 75.4% | 87.3% | 44.1% | 0.14 |
+| Dense RAG | 53.1% | 70.3% | 34.1% | 0.08 |
+| Reranker RAG | 34.5% | 47.2% | 21.2% | 0.05 |
+| RAG + CoT | 71.8% | 70.3% | 34.1% | 0.08 |
+| RAG + Judge | 56.8% | 70.3% | 34.1% | 0.08 |
 | Tree Traversal | 2.0% | 2.4% | 1.0% | 0.00 |
 
 ## What is TreeBench?
@@ -70,11 +70,6 @@ TreeBench/
     parse_ecfr.py             # eCFR XML parser
     pattern_hunters.py        # 10 failure-pattern hunters
     question_schema.py        # Question schema
-    candidate_validator.py    # Quality-rank candidates
-    pilot_generator_v3.py     # Question generator (v3)
-    pilot_validate_v3.py      # Post-generation validation
-    promote_to_gold.py        # Candidate -> gold promotion
-    finalize_gold.py          # Final cleanup
     baseline_runner.py        # Evaluation harness + metrics
     retrieval_baselines.py    # BM25, Dense, Hybrid, Reranker, Oracle
     reasoning_baselines.py    # RAG+CoT, RAG+Judge, Tree Traversal
@@ -82,8 +77,6 @@ TreeBench/
   paper/
     treebench.tex             # Paper manuscript
     references.bib            # References (22 entries)
-    generate_figures.py       # Figure generation script
-    generate_fig1_pipeline.py # Pipeline diagram script
     figures/                  # Generated figures (PDF + PNG)
   scripts/
     download_tier1.py         # Download eCFR source XML
